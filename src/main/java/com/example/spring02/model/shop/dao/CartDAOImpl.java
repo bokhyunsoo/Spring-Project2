@@ -22,8 +22,7 @@ public class CartDAOImpl implements CartDAO {
 
 	@Override
 	public void insert(CartDTO dto) {
-		// TODO Auto-generated method stub
-
+		sqlSession.insert("cart.insert", dto);
 	}
 
 	@Override

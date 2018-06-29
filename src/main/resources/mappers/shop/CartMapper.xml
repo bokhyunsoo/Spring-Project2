@@ -5,6 +5,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="cart">
+
+	<insert id="insert">
+		insert into cart (cart_id, userid, product_id, amount) values (cart_seq.nextval,#{userid},#{product_id},#{amount})
+	</insert>
+	
 	<select id="listCart" resultType="com.example.spring02.model.shop.dto.CartDTO">
 		select cart_id, m.userid, name, p.product_id, product_name, amount, price, price*amount money from member m, cart c, product p where m.userid = c.userid and p.product_id = c.product_id and m.userid=#{userid}
 	</select>

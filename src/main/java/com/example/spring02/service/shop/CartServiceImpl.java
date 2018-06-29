@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService {
 
 	@Override
 	public void insert(CartDTO dto) {
-		// TODO Auto-generated method stub
+		cartDao.insert(dto);
 
 	}
 
