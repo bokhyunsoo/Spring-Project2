@@ -1,28 +1,28 @@
-package com.example.spring02.model.shop.dao;
+package com.example.spring02.service.shop;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import com.example.spring02.model.shop.dao.ProductDAO;
 import com.example.spring02.model.shop.dto.ProductDTO;
 
-@Repository
-public class ProductDAOImpl implements ProductDAO {
-	
-	@Inject // 의존관계 주입
-	SqlSession sqlSession;
+@Service
+public class ProductServiceImpl implements ProductService {
+
+	@Inject
+	ProductDAO productDao;
 	
 	@Override
 	public List<ProductDTO> listProduct() {
-		return sqlSession.selectList("product.product_list");
+		return productDao.listProduct();
 	}
 
 	@Override
 	public ProductDTO detailProduct(int product_id) {
-		return sqlSession.selectOne("product.detail_product", product_id);
+		return productDao.detailProduct(product_id);
 	}
 
 	@Override

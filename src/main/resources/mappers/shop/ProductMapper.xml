@@ -8,6 +8,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="product_list" resultType="productDto">
 		select * from product order by product_name
 	</select>
+	
+	<select id="detail_product" resultType="productDto">
+		select * from product where product_id=#{product_id}
+	</select>
+	
 </mapper>
 
 
