@@ -26,5 +26,7 @@ if (session.getAttribute("userid") != null )
 </h1>
 
 <P>  The time on the server is ${serverTime}. </P>
+<!-- 실제로 서비스되는 디렉토리(배포 디렉토리) -->
+<%=application.getRealPath("/") %>
 </body>
 </html>

@@ -6,6 +6,18 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
+<script>
+$(function(){
+	$("#btnList").click(function(){
+		location.href="${path}/shop/product/list.do";
+	});
+	$("#btnDelete").click(function(){
+		if(confirm("장바구니를 비우시겠습니까?")){
+			location.href="${path}/shop/cart/deleteAll.do";
+		}
+	});
+});
+</script>
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
@@ -29,15 +41,25 @@
 						<td>${row.product_name}</td>
 						<td>${row.price}</td>
 						<td><input type="number" name="amount" value="${row.amount}">
-							<input type="hidden" name="product_id" value="${row.product_id}">
+							<input type="hidden" name="cart_id" value="${row.cart_id}">
 						</td>
 						<td>${row.money}</td>
 						<td><a href="${path}/shop/cart/delete.do?cart_id=${row.cart_id}">삭제</a></td>
 					</tr>
 				</c:forEach>
+				<tr>
+					<td colspan="5" align="right">
+					장바구니 금액 합계 : ${map.sumMoney}<br>
+					배송료 : ${map.fee}<br>
+					총합계 : ${map.sum}
+					</td>
+				</tr>
 			</table>
+			<button id="btnUpdate">수정</button>
+			<button type="button" id="btnDelete">장바구니 비우기</button>
 		</form>
 	</c:otherwise>
 </c:choose>
+<button type="button" id="btnList">상품목록</button>
 </body>
 </html>

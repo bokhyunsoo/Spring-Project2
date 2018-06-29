@@ -29,16 +29,17 @@ public class CartDAOImpl implements CartDAO {
 	public List<CartDTO> listCart(String userid) {
 		return sqlSession.selectList("cart.listCart", userid);
 	}
-
+	
+	// 장바구니 개별 상품 삭제
 	@Override
 	public void delete(int cart_id) {
-		// TODO Auto-generated method stub
+		sqlSession.delete("cart.delete", cart_id);
 
 	}
 
 	@Override
 	public void deleteAll(String userid) {
-		// TODO Auto-generated method stub
+		sqlSession.delete("cart.deleteAll", userid);
 
 	}
 
@@ -50,8 +51,7 @@ public class CartDAOImpl implements CartDAO {
 
 	@Override
 	public int sumMoney(String userid) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("cart.sumMoney", userid);
 	}
 
 	@Override
@@ -68,7 +68,7 @@ public class CartDAOImpl implements CartDAO {
 
 	@Override
 	public void modifyCart(CartDTO dto) {
-		// TODO Auto-generated method stub
+		sqlSession.update("cart.modifyCart", dto);
 
 	}
 
