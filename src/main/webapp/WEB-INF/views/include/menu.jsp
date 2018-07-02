@@ -15,6 +15,7 @@
 		<c:when test="${sessionScope.userid == null}">
 			<!-- 로그인하지 않는 상태 -->
 			<a href="${path}/member/login.do">로그인</a>
+			<a href="${path}/admin/login.do">관리자 로그인</a>
 		</c:when>
 		<c:otherwise>
 			<!-- 로그인한 상태 -->

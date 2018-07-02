@@ -49,9 +49,11 @@ $(function(){
 				</c:forEach>
 				<tr>
 					<td colspan="5" align="right">
-					장바구니 금액 합계 : ${map.sumMoney}<br>
+					장바구니 금액 합계 : 
+					<fmt:formatNumber value="${map.sumMoney}" pattern="###,###" /><br>
 					배송료 : ${map.fee}<br>
-					총합계 : ${map.sum}
+					총합계 :
+					<fmt:formatNumber value="${map.sum}" pattern="###,###" />
 					</td>
 				</tr>
 			</table>
