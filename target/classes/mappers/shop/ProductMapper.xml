@@ -5,6 +5,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="product">
+
+	<update id="update_product">
+		update product set product_name = #{product_name}, price = #{price}, description = #{description}, picture_url = #{picture_url} where product_id = #{product_id}
+	</update>
+	
+	<insert id="insert">
+		insert into product values (seq_product.nextval, #{product_name}, #{price}, #{description}, #{picture_url})
+	</insert>
+	
+	<delete id="delete">
+		delete from product where product_id=#{product_id}
+	</delete>
+	
+	<select id="file_info" resultType="String">
+		select picture_url from product where product_id=#{product_id}
+	</select>
+	
 	<select id="product_list" resultType="productDto">
 		select * from product order by product_name
 	</select>

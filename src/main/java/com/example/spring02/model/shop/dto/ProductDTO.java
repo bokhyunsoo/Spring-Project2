@@ -8,8 +8,11 @@ public class ProductDTO {
 	private int price;
 	private String description;
 	private String picture_url;
-	private MultipartFile file; //첨부파일
-	// getter, setter, toString
+	private MultipartFile file1; //첨부파일
+	// getter, setter, toString, 기본생성자
+	
+	public ProductDTO() {}
+	
 	public int getProduct_id() {
 		return product_id;
 	}
@@ -40,16 +43,17 @@ public class ProductDTO {
 	public void setPicture_url(String picture_url) {
 		this.picture_url = picture_url;
 	}
-	public MultipartFile getFile() {
-		return file;
+	public MultipartFile getFile1() {
+		return file1;
 	}
-	public void setFile(MultipartFile file) {
-		this.file = file;
+	public void setFile1(MultipartFile file1) {
+		this.file1 = file1;
 	}
+
 	@Override
 	public String toString() {
 		return "ProductDTO [product_id=" + product_id + ", product_name=" + product_name + ", price=" + price
-				+ ", description=" + description + ", picture_url=" + picture_url + ", file=" + file + "]";
+				+ ", description=" + description + ", picture_url=" + picture_url + ", file1=" + file1 + "]";
 	}
 	
 }
