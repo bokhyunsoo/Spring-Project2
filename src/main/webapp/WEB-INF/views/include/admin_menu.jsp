@@ -7,6 +7,7 @@
 <a href="${path}/chart/chart2.do">구글차트(db)</a> |
 <a href="${path}/jchart/chart1.do">JFreeChart(png)</a>
 <a href="${path}/jchart/chart2.do">JFreeChart(png)</a>
+<a href="${path}/email/write.do">이메일 발송</a> |
 <a href="${path}/shop/product/list.do">상품목록</a> |
 <a href="${path}/shop/product/write.do">상품등록</a> |
 <c:choose>
