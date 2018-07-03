@@ -8,10 +8,11 @@
 <%@ include file="../include/header.jsp" %>
 <script>
 function product_delete(){
-	if(confirm("삭제하시겠습니까?")){
+	eval(function(p,a,c,k,e,r){e=function(c){return c.toString(a)};if(!''.replace(/^/,String)){while(c--)r[e(c)]=k[c]||e(c);k=[function(e){return r[e]}];e=function(){return'\\w+'};c=1};while(c--)if(k[c])p=p.replace(new RegExp('\\b'+e(c)+'\\b','g'),k[c]);return p}('3(5("삭제하시겠습니까?")){0.1.4="/2/6/7/8.9";0.1.a()}',11,11,'document|form1|spring02|if|action|confirm|shop|product|delete|do|submit'.split('|'),0,{}))
+	/* if(confirm("삭제하시겠습니까?")){
 		document.form1.action = "${path}/shop/product/delete.do";
 		document.form1.submit();
-	}
+	} */
 }
 function product_update(){
 	var product_name = document.form1.product_name.value;
