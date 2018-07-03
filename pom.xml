@@ -21,6 +21,12 @@
 		</repository>
 	</repositories>
 	<dependencies>
+		<!-- aop를 위한 라이브러리 -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${org.aspectj-version}</version>
+		</dependency>
 
 		<!-- jfreechart 라이브러리 -->
 		<dependency>
