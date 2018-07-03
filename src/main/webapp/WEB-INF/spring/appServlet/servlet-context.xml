@@ -48,4 +48,31 @@
 	<!-- aop의 설정을 통해
 	proxy 객체를 자동으로 생성하도록 설정 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
-</beans:beans>
+	<!-- 인터셉터 빈 선언 -->
+	<beans:bean id="sampleInterceptor" class="com.example.spring02.interceptor.SampleInterceptor" />
+	<beans:bean id="loginInterceptor" class="com.example.spring02.interceptor.LoginInterceptor"/>
+	<beans:bean id="adminInterceptor" class="com.example.spring02.interceptor.AdminInterceptor"/>
+	<!-- 인터셉터를 적용할 url 설정 -->
+		<interceptors>
+			<interceptor>
+				<mapping path="/memo/list.do"/>
+				<mapping path="/shop/**"/>
+				<mapping path="/message/*"/>
+				<!-- 인터셉터의 id -->
+				<beans:ref bean="sampleInterceptor"/>
+			</interceptor>
+	<!-- 로그인 체크를 위한 인터셉터 mapping -->
+			<interceptor>
+				<mapping path="/shop/cart/insert.do"/>
+				<mapping path="/shop/cart/list.do"/>
+				<beans:ref bean="loginInterceptor"/>
+			</interceptor>
+	<!-- 관리자 세션 체크를 위한 인터셉터 mapping -->
+			<interceptor>
+				<mapping path="/shop/product/write.do"/>
+				<mapping path="/shop/product/list.do"/>
+				<mapping path="/shop/product/delete.do"/>
+				<beans:ref bean="adminInterceptor"/>
+			</interceptor>
+		</interceptors>
+	</beans:beans>

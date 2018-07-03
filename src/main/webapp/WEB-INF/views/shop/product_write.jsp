@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
+<%-- <%@ include file="../include/session_check.jsp" %> --%>
 <script>
 function product_write(){
 	var product_name = document.form1.product_name.value;
