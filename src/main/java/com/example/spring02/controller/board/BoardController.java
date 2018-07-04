@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.spring02.model.board.dto.BoardDTO;
@@ -55,4 +56,16 @@ public class BoardController {
 		boardService.create(dto);
 		return "redirect:/board/list.do";
 	}
+	
+	@RequestMapping("view.do")
+	public ModelAndView view(@RequestParam int bno, HttpSession session) throws Exception {
+		//조회수 증가처리
+		boardService.increaseViewcnt(bno, session);
+		//레코드를 리턴받음
+		ModelAndView mav = new ModelAndView();
+		mav.setViewName("board/view");
+		mav.addObject("dto", boardService.read(bno));
+		return mav;
+	}
+	
 }

@@ -6,7 +6,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="board">
 	<select id="listAll" resultType="com.example.spring02.model.board.dto.BoardDTO">
-		select bno, title, content, b.regdate, viewcnt, name
+		select bno, title, b.regdate, viewcnt, name
 		from board b, member m where b.WRITER = m.userid order by bno desc, regdate desc
 	</select>
 	
@@ -14,6 +14,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		insert into board (bno, title, content, writer) values ( (select nvl(max(bno)+1,1) from board), #{title}, #{content}, #{writer})
 	</insert>
 	
+	<select id="view" resultType="com.example.spring02.model.board.dto.BoardDTO">
+		select bno, title, b.regdate, content, viewcnt, name, writer from board b, member m where b.writer = m.userid and bno=#{bno}
+	</select>
 </mapper>
 
 

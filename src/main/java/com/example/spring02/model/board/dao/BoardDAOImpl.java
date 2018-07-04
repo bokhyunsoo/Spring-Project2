@@ -49,8 +49,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public BoardDTO read(int bno) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectOne("board.view", bno);
 	}
 
 	@Override
