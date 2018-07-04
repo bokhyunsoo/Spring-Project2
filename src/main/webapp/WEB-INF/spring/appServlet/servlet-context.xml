@@ -65,6 +65,10 @@
 			</interceptor>
 	<!-- 로그인 체크를 위한 인터셉터 mapping -->
 			<interceptor>
+				<mapping path="/board/write.do"/>
+				<mapping path="/board/insert.do"/>
+				<mapping path="/board/update.do"/>
+				<mapping path="/board/delete.do"/>
 				<mapping path="/shop/cart/insert.do"/>
 				<mapping path="/shop/cart/list.do"/>
 				<beans:ref bean="loginInterceptor"/>
