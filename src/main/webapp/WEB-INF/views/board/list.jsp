@@ -33,14 +33,29 @@ ${map.count}개의 게시물이 있습니다.
 		<th>조회수</th>
 	</tr>
 	<c:forEach var="row" items="${map.list}">
-		<tr>
-			<td>${row.bno}</td>
-			<td><%-- <a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a> --%>
-			<a href="#" onclick="view('${row.bno}')">${row.title}</a></td>
-			<td>${row.name}</td>
-			<td><fmt:formatDate value="${row.regdate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-			<td>${row.viewcnt}</td>
-		</tr>
+		<c:choose>
+			<c:when test="${row.show == 'Y'}">
+					<tr>
+						<td>${row.bno}</td>
+						<td>
+							<%-- <a href="${path}/board/view.do?bno=${row.bno}">${row.title}</a> --%>
+							<a href="#" onclick="view('${row.bno}')">${row.title}</a>
+						</td>
+						<td>${row.name}</td>
+						<td><fmt:formatDate value="${row.regdate}"
+								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td>${row.viewcnt}</td>
+					</tr>
+			</c:when>
+			<c:otherwise>
+				<!-- 숨김처리한 게시물 -->
+				<tr>
+					<td>${row.bno}</td>
+					<td colspan="4" align="center">삭제된 게시물입니다.</td>
+				</tr>
+			</c:otherwise>
+		</c:choose>
+		
 	</c:forEach>
 </table>
 <form name="form" method="post">

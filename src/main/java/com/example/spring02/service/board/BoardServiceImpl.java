@@ -41,13 +41,13 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void update(BoardDTO dto) throws Exception {
-		// TODO Auto-generated method stub
+		boardDao.update(dto);
 
 	}
 
 	@Override
 	public void delete(int bno) throws Exception {
-		// TODO Auto-generated method stub
+		boardDao.delete(bno);
 
 	}
 
@@ -58,8 +58,18 @@ public class BoardServiceImpl implements BoardService {
 
 	@Override
 	public void increaseViewcnt(int bno, HttpSession session) throws Exception {
-		// TODO Auto-generated method stub
-
+		long update_time = 0;
+		//세션에 저장된 게시물의 조회시간 검색
+		if(session.getAttribute("update_time_"+bno)!=null) {
+			update_time=(long)session.getAttribute("update_time_"+bno);
+		}
+		//현재 시간
+		long current_time = System.currentTimeMillis();
+		//일정 시간이 경과된 후 조회수 증가 처리
+		if(current_time - update_time > 10*1000 ) {
+			boardDao.increaseViewcnt(bno);
+			session.setAttribute("update_time_"+bno, current_time);
+		}
 	}
 
 	@Override

@@ -68,4 +68,16 @@ public class BoardController {
 		return mav;
 	}
 	
+	
+	@RequestMapping("update.do")
+	public String update(@ModelAttribute BoardDTO dto) throws Exception {
+		boardService.update(dto);
+		return "redirect:/board/list.do";
+	}
+	
+	@RequestMapping("delete.do")
+	public String delete(@RequestParam int bno) throws Exception {
+		boardService.delete(bno);
+		return "redirect:/board/list.do";
+	}
 }

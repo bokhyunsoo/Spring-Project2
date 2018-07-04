@@ -7,6 +7,22 @@
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
 <script src="${path}/ckeditor/ckeditor.js"></script>
+<script>
+$(function(){
+	$("#btnUpdate").click(function(){
+		document.form1.action="${path}/board/update.do";
+		document.form1.submit();
+	});
+});
+$(function(){
+	$("#btnDelete").click(function(){
+		if(confirm("삭제하시겠습니까?")){
+			document.form1.action="${path}/board/delete.do";
+			document.form1.submit();
+		}
+	});
+});
+</script>
 </head>
 <body>
 <%@ include file="../include/menu.jsp" %>
@@ -24,8 +40,11 @@ CKEDITOR.replace("content",{filebrowserUploadUrl : "${path}/imageUpload.do"});
 </script>
 <div>
 	<input type="hidden" name="bno" value="${dto.bno}">
+	<!-- 본인의 게시물만 수정, 삭제 버튼 표시 -->
+	<c:if test="${sessionScope.userid == dto.writer}">
 	<button type="button" id="btnUpdate">수정</button>
 	<button type="button" id="btnDelete">삭제</button>
+	</c:if>
 	<button type="button" id="btnList">목록</button>
 </div>
 </form>

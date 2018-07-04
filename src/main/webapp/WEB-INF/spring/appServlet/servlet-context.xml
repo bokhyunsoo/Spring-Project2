@@ -71,12 +71,12 @@
 				<mapping path="/board/delete.do"/>
 				<mapping path="/shop/cart/insert.do"/>
 				<mapping path="/shop/cart/list.do"/>
+				<mapping path="/shop/product/list.do"/>
 				<beans:ref bean="loginInterceptor"/>
 			</interceptor>
 	<!-- 관리자 세션 체크를 위한 인터셉터 mapping -->
 			<interceptor>
 				<mapping path="/shop/product/write.do"/>
-				<mapping path="/shop/product/list.do"/>
 				<mapping path="/shop/product/delete.do"/>
 				<beans:ref bean="adminInterceptor"/>
 			</interceptor>
