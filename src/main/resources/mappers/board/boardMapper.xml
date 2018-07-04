@@ -7,7 +7,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="board">
 	<select id="listAll" resultType="com.example.spring02.model.board.dto.BoardDTO">
 		select bno, title, b.regdate, viewcnt, name, show
-		from board b, member m where b.WRITER = m.userid order by bno desc, regdate desc
+		from board b, member m <include refid="search" /> order by bno desc, regdate desc
 	</select>
 	
 	<insert id="insert">
@@ -29,6 +29,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteArticle">
 		delete from board where bno=#{bno}
 	</delete>
+	<!-- #변수 - 따옴표를 처리(스트링 붙이고 숫자는 빼고)
+	$변수 - 따옴표를 무시 -->
+	<sql id="search">
+		<choose>
+			<when test="search_option == 'all'">
+				where b.writer = m.userid and ( name like '%' || #{keyword} || '%'
+												or content like '%' || #{keyword} || '%'
+												or title like '%' || #{keyword} || '%' )
+			</when>
+			<otherwise>
+				where b.writer = m.userid and ${search_option} like '%' || #{keyword} || '%'
+			</otherwise>
+		</choose>
+	</sql>
 </mapper>
 
 

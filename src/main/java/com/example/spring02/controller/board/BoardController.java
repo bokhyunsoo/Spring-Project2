@@ -27,7 +27,8 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping("list.do")
-	public ModelAndView list(String search_option, String keyword) throws Exception {
+	public ModelAndView list(@RequestParam(defaultValue="all") String search_option, @RequestParam(defaultValue="") String keyword) throws Exception {
+		//페이지 나누기를 위한 변수
 		int start = 0;
 		int end = 0;
 		List<BoardDTO> list = boardService.listAll(search_option, keyword, start, end);
@@ -36,6 +37,8 @@ public class BoardController {
 		Map<String,Object> map = new HashMap<>();
 		map.put("list", list); // 게시물 목록
 		map.put("count", list.size()); // 레코드 갯수
+		map.put("search_option", search_option);
+		map.put("keyword", keyword);
 		mav.addObject("map", map);
 //		mav.addObject("list", list);
 //		mav.addObject("count", list.size());

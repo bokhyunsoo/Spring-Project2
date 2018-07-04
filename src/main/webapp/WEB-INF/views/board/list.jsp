@@ -22,6 +22,42 @@ function view(bno){
 <body>
 <%@ include file="../include/menu.jsp" %>
 <h2>게시판</h2>
+
+<!-- 검색폼 -->
+<form name="form1" method="post" action="${path}/board/list.do">
+	<select name="search_option">
+	<c:choose>
+		<c:when test="${map.search_option == 'name' }">
+			<option value="all">이름+내용+제목</option>
+			<option value="name" selected>이름</option>
+			<option value="content">내용</option>
+			<option value="title">제목</option>
+		</c:when>
+		<c:when test="${map.search_option == 'content' }">
+			<option value="all">이름+내용+제목</option>
+			<option value="name">이름</option>
+			<option value="content" selected>내용</option>
+			<option value="title">제목</option>
+		</c:when>
+		<c:when test="${map.search_option == 'title' }">
+			<option value="all">이름+내용+제목</option>
+			<option value="name">이름</option>
+			<option value="content">내용</option>
+			<option value="title" selected>제목</option>
+		</c:when>
+		<c:otherwise>
+			<option value="all" selected>이름+내용+제목</option>
+			<option value="name">이름</option>
+			<option value="content">내용</option>
+			<option value="title">제목</option>
+		</c:otherwise>
+	</c:choose>
+		
+	</select>
+	<input type="text" name="keyword" value="${map.keyword}">
+	<input type="submit" value="조회">
+</form>
+
 <button type="button" id="btnWrite">글쓰기</button>
 ${map.count}개의 게시물이 있습니다.
 <table border="1" width="600px">
