@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.spring02.model.board.dto.BoardDTO;
 import com.example.spring02.service.board.BoardService;
+import com.example.spring02.service.board.Pager;
 
 @Controller
 @RequestMapping("/board/*")
@@ -27,10 +28,13 @@ public class BoardController {
 	BoardService boardService;
 	
 	@RequestMapping("list.do")
-	public ModelAndView list(@RequestParam(defaultValue="all") String search_option, @RequestParam(defaultValue="") String keyword) throws Exception {
-		//페이지 나누기를 위한 변수
-		int start = 0;
-		int end = 0;
+	public ModelAndView list(@RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="all") String search_option, @RequestParam(defaultValue="") String keyword) throws Exception {
+		//레코드 갯수 계산
+		int count = boardService.countArticle(search_option, keyword);
+		//페이지의 시작번호, 끝번호 계산
+		Pager pager = new Pager(count,curPage);
+		int start = pager.getPageBegin();
+		int end = pager.getPageEnd();
 		List<BoardDTO> list = boardService.listAll(search_option, keyword, start, end);
 		ModelAndView mav = new ModelAndView();
 		mav.setViewName("board/list"); // 포워딩할 페이지
@@ -39,6 +43,7 @@ public class BoardController {
 		map.put("count", list.size()); // 레코드 갯수
 		map.put("search_option", search_option);
 		map.put("keyword", keyword);
+		map.put("pager", pager);
 		mav.addObject("map", map);
 //		mav.addObject("list", list);
 //		mav.addObject("count", list.size());

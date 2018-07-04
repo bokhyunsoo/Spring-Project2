@@ -5,9 +5,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="board">
+
+	<select id="countArticle" resultType="int">
+		select count(*) from board b, member m <include refid="search" />
+	</select>
+	
 	<select id="listAll" resultType="com.example.spring02.model.board.dto.BoardDTO">
+		<include refid="paging_header" />
 		select bno, title, b.regdate, viewcnt, name, show
 		from board b, member m <include refid="search" /> order by bno desc, regdate desc
+		<include refid="paging_footer" />
 	</select>
 	
 	<insert id="insert">
@@ -42,6 +49,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				where b.writer = m.userid and ${search_option} like '%' || #{keyword} || '%'
 			</otherwise>
 		</choose>
+	</sql>
+	
+	<sql id="paging_header">
+		select *
+		from (
+		  select rownum as rn, A.*
+		  from (
+	</sql>
+	<sql id="paging_footer">
+		) A
+	  ) where rn between #{start} and #{end}
 	</sql>
 </mapper>
 
