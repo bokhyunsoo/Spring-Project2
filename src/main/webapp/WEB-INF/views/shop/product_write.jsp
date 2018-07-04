@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
 <%-- <%@ include file="../include/session_check.jsp" %> --%>
+<script src="${path}/ckeditor/ckeditor.js"></script>
 <script>
 function product_write(){
 	var product_name = document.form1.product_name.value;
@@ -44,7 +45,13 @@ enctype="multipart/form-date" -->
 	</tr>
 	<tr>
 		<td>상품설명</td>
-		<td><textarea rows="5" cols="60" name="description" id="description"></textarea></td>
+		<td><textarea rows="5" cols="60" name="description" id="description"></textarea>
+		<script>
+		/* id가 description인 태그를 ckeditor로 변경 */
+		/* CKEDITOR.replace("description"); */
+		CKEDITOR.replace("description",{filebrowserUploadUrl : "${path}/imageUpload.do"});
+		</script>
+		</td>
 	</tr>
 	<tr>
 		<td>상품이미지</td>
