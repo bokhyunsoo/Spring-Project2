@@ -6,8 +6,21 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <script>
 $(function(){
+	$("#memo").summernote({
+		width: 800,
+		height: 150
+	});
+	
 	$("#btnUpdate").click(function(){
 		document.form1.action="${path}/memo/update/${dto.idx}";
 		document.form1.submit();
@@ -38,7 +51,9 @@ $(function(){
 	</tr>
 	<tr>
 		<td>메모</td>
-		<td><input name="memo" value="${dto.memo}" size="50"></td>
+		<td><%-- <input name="memo" value="${dto.memo}" size="50"> --%>
+		<textarea name="memo" id="memo">${dto.memo}</textarea>
+		</td>
 	</tr>
 	<tr align="center">
 		<td colspan="2">
