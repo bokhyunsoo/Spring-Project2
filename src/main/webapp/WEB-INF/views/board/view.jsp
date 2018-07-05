@@ -12,6 +12,10 @@
 $(function(){
 	listAttach(); // 첨부파일 목록 로딩
 	
+	$("#btnReply").click(function(){
+		reply();
+	});
+	
 	//드래그 기본효과 막음
 	$(".fileDrop").on("dragenter dragover",function(e){
 		e.preventDefault();
@@ -105,7 +109,23 @@ function listAttach(){
 		}
 	});
 }
+
+function reply(){
+	var replytext=$("#replytext").val(); //댓글 내용
+	var bno="${dto.bno}"; // 게시물 번호
+// var param = "replytext="+replytext+"&bno="+bno;
+	var param = {"replytext": replytext, "bno":bno};
+	$.ajax({
+		type : "post",
+		url : "${path}/reply/inset.do",
+		data : param,
+		success : function(){ // 콜백 함수
+			alert("댓글이 등록되었습니다.");
+		}
+	});
+}
 </script>
+
 <style>
 .fileDrop {
 	width: 600px;
@@ -143,6 +163,14 @@ CKEDITOR.replace("content",{filebrowserUploadUrl : "${path}/imageUpload.do"});
 	<button type="button" id="btnDelete">삭제</button>
 	</c:if>
 	<button type="button" id="btnList">목록</button>
+</div>
+<!-- 댓글 작성폼 -->
+<div style="width:700px; text-align:center;">
+<c:if test="${sessionScope.userid != null}">
+	<textarea rows="5" cols="80" id="replytext" placeholder="댓글을 작성하세요"></textarea>
+	<br>
+	<button type="button" id="btnReply">댓글쓰기</button>
+</c:if>
 </div>
 </form>
 </body>
