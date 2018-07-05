@@ -5,6 +5,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
 <mapper namespace="board">
+	<!-- 시퀀스.currval 현재 레코드의 번호 -->
+	<insert id="addAttach">
+		insert into attch (fullName, bno) values ( #{fullName}, seq_board.currval)
+	</insert>
 
 	<select id="countArticle" resultType="int">
 		select count(*) from board b, member m <include refid="search" />
@@ -18,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insert">
-		insert into board (bno, title, content, writer) values ( (select nvl(max(bno)+1,1) from board), #{title}, #{content}, #{writer})
+		insert into board (bno, title, content, writer) values ( seq_board.nextval, #{title}, #{content}, #{writer})
 	</insert>
 	
 	<select id="view" resultType="com.example.spring02.model.board.dto.BoardDTO">

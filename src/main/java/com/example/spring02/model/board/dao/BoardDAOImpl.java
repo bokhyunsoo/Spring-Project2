@@ -31,7 +31,7 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void addAttach(String fullName) {
-		// TODO Auto-generated method stub
+		sqlSession.insert("board.addAttach", fullName);
 
 	}
 
