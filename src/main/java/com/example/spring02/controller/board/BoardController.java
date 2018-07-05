@@ -11,8 +11,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.spring02.model.board.dto.BoardDTO;
@@ -26,6 +28,13 @@ public class BoardController {
 	
 	@Inject
 	BoardService boardService;
+	
+	// REST방식의 url {bno} => PathVariable로 선언
+	@RequestMapping("getAttach/{bno}")
+	@ResponseBody // 뷰가 아닌 데이터를 보낼 경우
+	public List<String> getAttach(@PathVariable("bno") int bno){
+		return boardService.getAttach(bno);
+	}
 	
 	@RequestMapping("list.do")
 	public ModelAndView list(@RequestParam(defaultValue="1") int curPage, @RequestParam(defaultValue="all") String search_option, @RequestParam(defaultValue="") String keyword) throws Exception {

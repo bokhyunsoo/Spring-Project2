@@ -19,14 +19,12 @@ public class BoardDAOImpl implements BoardDAO {
 	
 	@Override
 	public void deleteFile(String fullName) {
-		// TODO Auto-generated method stub
-
+		sqlSession.delete("board.deleteAttach",fullName);
 	}
 
 	@Override
 	public List<String> getAttach(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return sqlSession.selectList("board.getAttach", bno);
 	}
 
 	@Override
@@ -37,8 +35,10 @@ public class BoardDAOImpl implements BoardDAO {
 
 	@Override
 	public void updateAttach(String fullName, int bno) {
-		// TODO Auto-generated method stub
-
+		Map<String,Object> map = new HashMap<>();
+		map.put("fullName", fullName);
+		map.put("bno", bno);
+		sqlSession.insert("board.updateAttach", map);
 	}
 
 	@Override

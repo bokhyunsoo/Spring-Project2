@@ -32,8 +32,9 @@ $(function(){
 		var files=event.originalEvent.dataTransfer.files;
 		var file=files[0]; //첫번째 첨부파일
 		var formData=new FormData(); //폼 객체
-		formData.append("file",file); //폼에 file 변수 추가
+		formData.append("file",file); //폼에 file 변수 추가 , MultipartFile file
 		//서버에 파일 업로드(백그라운드에서 실행됨)
+		// processData : false => post방식 , true => get방식
 		// contentType: false => multipart/form-data로 처리됨
 		$.ajax({
 			type: "post",
@@ -91,7 +92,7 @@ str+="<a href='${path}/upload/displayFile?fileName="
 	}
 	function getImageLink(fileName){
 		if(!checkImageType(fileName)){//이미지 파일이 아니면 skip
-			return;
+			return; // 함수종료
 		}
 		var front=fileName.substr(0,12);//연월일 경로
 		var end=fileName.substr(14);// s_ 제거

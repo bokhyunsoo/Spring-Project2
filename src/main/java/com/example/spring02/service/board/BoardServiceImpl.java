@@ -19,14 +19,12 @@ public class BoardServiceImpl implements BoardService {
 	
 	@Override
 	public void deleteFile(String fullName) {
-		// TODO Auto-generated method stub
-
+		boardDao.deleteFile(fullName);
 	}
 
 	@Override
 	public List<String> getAttach(int bno) {
-		// TODO Auto-generated method stub
-		return null;
+		return boardDao.getAttach(bno);
 	}
 
 	@Transactional
@@ -45,10 +43,18 @@ public class BoardServiceImpl implements BoardService {
 	public BoardDTO read(int bno) throws Exception {
 		return boardDao.read(bno);
 	}
-
+	
+	@Transactional
 	@Override
 	public void update(BoardDTO dto) throws Exception {
 		boardDao.update(dto);
+		// 첨부파일 정보 저장
+		String[] files = dto.getFiles();
+		if (files == null)
+			return; // 첨부파일이 없으면 리턴
+		for (String name : files) {
+			boardDao.updateAttach(name, dto.getBno());
+		}
 
 	}
 

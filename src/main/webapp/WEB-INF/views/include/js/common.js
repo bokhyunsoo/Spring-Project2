@@ -24,6 +24,7 @@ function getFileInfo(fullName){
 				+fullName;
 	}
 	// uuid_filename
+	// {변수, 값}
 	fileName=fileLink.substr(fileLink.indexOf("_")+1);
 	return {fileName: fileName, imgsrc: imgsrc,
 			getLink: getLink, fullName:fullName };

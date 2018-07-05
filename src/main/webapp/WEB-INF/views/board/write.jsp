@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <%@ include file="../include/header.jsp" %>
 <script src="${path}/include/js/common.js"></script>
+<!-- common.js -->
 <script src="${path}/ckeditor/ckeditor.js"></script>
 <script>
 $(function(){
@@ -31,16 +32,16 @@ $(function(){
 			processData: false,
 			contentType: false,
 			type: "post",
-			success: function(data){
+			success: function(data){ // 콜백함수
 				//console.log(data);
 				//data : 업로드한 파일 정보와 Http 상태 코드
-				var fileInfo=getFileInfo(data);
+				var fileInfo=getFileInfo(data); //첨부 파일 정보
 				//console.log(fileInfo);
 				var html="<a href='"+fileInfo.getLink+"'>"+
-					fileInfo.fileName+"</a><br>";
+					fileInfo.fileName+"</a><br>"; // 첨부파일 링크
 				html += "<input type='hidden' class='file' value='"
-					+fileInfo.fullName+"'>";
-				$("#uploadedList").append(html);
+					+fileInfo.fullName+"'>"; // hidden 태그 추가
+				$("#uploadedList").append(html); // div에 추가
 			}
 		});
 	});
