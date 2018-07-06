@@ -30,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="listAll" resultType="com.example.spring02.model.board.dto.BoardDTO">
 		<include refid="paging_header" />
 		select bno, title, b.regdate, viewcnt, name, show
+		,(select count(*) from reply where bno=b.bno) cnt
 		from board b, member m <include refid="search" /> order by bno desc, regdate desc
 		<include refid="paging_footer" />
 	</select>

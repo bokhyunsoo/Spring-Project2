@@ -28,8 +28,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Override
 	public int count(int bno) {
-		// TODO Auto-generated method stub
-		return 0;
+		return sqlSession.selectOne("reply.count", bno);
 	}
 
 	@Override

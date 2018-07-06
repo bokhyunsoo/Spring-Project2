@@ -18,8 +18,8 @@ $(function(){
 	listAttach(); // 첨부파일 목록 로딩
 	
 	//댓글 목록 출력
-	//listReply("1"); // responseText 방식
-	listReply2(); // json 방식
+	listReply("1"); // responseText 방식
+	//listReply2(); // json 방식
 	
 	//댓글 쓰기
 	$("#btnReply").click(function(){

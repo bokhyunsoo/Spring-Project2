@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.spring02.model.board.dto.ReplyDTO;
+import com.example.spring02.service.board.Pager;
 import com.example.spring02.service.board.ReplyService;
 
 //Controller - 뷰를 리턴
@@ -37,9 +38,16 @@ public class ReplyController {
 	// 뷰를 리턴할 경우는 ModelAndView 사용
 	@RequestMapping("list.do")
 	public ModelAndView list(@RequestParam int bno, @RequestParam(defaultValue="1") int curPage, ModelAndView mav, HttpSession session) {
-		List<ReplyDTO> list = replyService.list(bno, 1, 5, session);
+		// 댓글의 갯수 계산
+		int count = replyService.count(bno);
+		// 페이징 처리 클래스
+		Pager pager = new Pager(count,curPage);
+		int start = pager.getPageBegin(); // 시작 레코드 번호
+		int end = pager.getPageEnd(); // 마지막 레코드 번호
+		List<ReplyDTO> list = replyService.list(bno, start, end, session);
 		mav.setViewName("board/reply_list"); // 뷰의 이름
 		mav.addObject("list", list); // 뷰에 전달할 데이터
+		mav.addObject("pager", pager); // 페이지 내비게이션
 		return mav;
 	}
 // @ResponseBody : 리턴 타입이 json
