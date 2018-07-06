@@ -12,6 +12,10 @@
 $(function(){
 	listAttach(); // 첨부파일 목록 로딩
 	
+	//댓글 목록 출력
+	listReply("1");
+	
+	//댓글 쓰기
 	$("#btnReply").click(function(){
 		reply();
 	});
@@ -117,15 +121,26 @@ function reply(){
 	var param = {"replytext": replytext, "bno":bno};
 	$.ajax({
 		type : "post",
-		url : "${path}/reply/inset.do",
+		url : "${path}/reply/insert.do",
 		data : param,
 		success : function(){ // 콜백 함수
 			alert("댓글이 등록되었습니다.");
+			listReply("1");
+		}
+	});
+}
+function listReply(num){
+	$.ajax({
+		type: "get",
+		url: "${path}/reply/list.do?bno=${dto.bno}&curPage="+num,
+		success : function(result){
+//컨트롤러에서 뷰로 포워딩되어 출력된 responseText를
+//id가 listReply인 태그의 innterHTML영역에 출력시킴
+			$("#listReply").html(result);
 		}
 	});
 }
 </script>
-
 <style>
 .fileDrop {
 	width: 600px;
@@ -172,6 +187,8 @@ CKEDITOR.replace("content",{filebrowserUploadUrl : "${path}/imageUpload.do"});
 	<button type="button" id="btnReply">댓글쓰기</button>
 </c:if>
 </div>
+<!-- 댓글 목록을 출력할 영역 -->
+<div id="listReply"></div>
 </form>
 </body>
 </html>

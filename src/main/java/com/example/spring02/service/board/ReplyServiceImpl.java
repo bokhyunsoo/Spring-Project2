@@ -1,29 +1,25 @@
-package com.example.spring02.model.board.dao;
+package com.example.spring02.service.board;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
+import com.example.spring02.model.board.dao.ReplyDAO;
 import com.example.spring02.model.board.dto.ReplyDTO;
 
-@Repository
-public class ReplyDAOImpl implements ReplyDAO {
+@Service
+public class ReplyServiceImpl implements ReplyService {
 	
 	@Inject
-	SqlSession sqlSession;
+	ReplyDAO replyDao;
 	
 	@Override
-	public List<ReplyDTO> list(int bno, int start, int end) {
-		Map<String,Object> map = new HashMap<>();
-		map.put("start", start);
-		map.put("end", end);
-		map.put("bno", bno);
-		return sqlSession.selectList("reply.listReply", map);
+	public List<ReplyDTO> list(int bno, int start, int end, HttpSession session) {
+		List<ReplyDTO> items = replyDao.list(bno, start, end);
+		return items;
 	}
 
 	@Override
@@ -34,7 +30,7 @@ public class ReplyDAOImpl implements ReplyDAO {
 
 	@Override
 	public void create(ReplyDTO dto) {
-		sqlSession.insert("reply.insertReply", dto);
+		replyDao.create(dto);
 	}
 
 	@Override
