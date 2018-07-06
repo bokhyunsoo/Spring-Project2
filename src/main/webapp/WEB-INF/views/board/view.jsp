@@ -10,10 +10,16 @@
 <script src="${path}/ckeditor/ckeditor.js"></script>
 <script>
 $(function(){
+	//목록 버튼 클릭
+	$("#btnList").click(function(){
+		location.href="${path}/board/list.do";
+	});
+	
 	listAttach(); // 첨부파일 목록 로딩
 	
 	//댓글 목록 출력
-	listReply("1");
+	//listReply("1"); // responseText 방식
+	listReply2(); // json 방식
 	
 	//댓글 쓰기
 	$("#btnReply").click(function(){
@@ -129,6 +135,46 @@ function reply(){
 		}
 	});
 }
+//json리턴 방식
+function listReply2(){
+	$.ajax({
+		type : "get",
+		contentType : "application/json",
+		url : "${path}/reply/list_json.do?bno=${dto.bno}",
+		success:function(result){
+			console.log(result);
+			var output = "<table>";
+			for (var i in result){
+				var repl=result[i].replytext;
+//		/정규표현식  /g	global 검색 , i => 대소문자 구분X
+				repl = repl.replace(/  /gi,"&nbsp;&nbsp;");//공백처리
+				repl = repl.replace(/</gi,"&lt;"); //태그문자 처리
+				repl = repl.replace(/>/gi,"&gt;");
+				repl = repl.replace(/\n/gi,"<br>"); //줄바꿈 처리
+				
+				output += "<tr><td>"+result[i].name;
+				date = changeDate(result[i].regdate);
+				output += "("+date+")";
+				output += "<br>"+repl+"</td></tr>";
+			}
+			output += "</table>";
+			$("#listReply").html(output);
+		}
+	});
+}
+function changeDate(date){
+	//javascript 날짜 객체, parseInt() 숫자로 변환
+	date = new Date(parseInt(date));
+	year = date.getFullYear(); //4자리 연도
+	month = date.getMonth()+1;
+	day = date.getDate();
+	hour = date.getHours();
+	minute = date.getMinutes();
+	second = date.getSeconds();
+	strDate = year+"-"+month+"-"+day+" "+hour+":"+minute+":"+second;
+	return strDate;
+}
+//responseText 방식
 function listReply(num){
 	$.ajax({
 		type: "get",

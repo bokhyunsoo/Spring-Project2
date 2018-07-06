@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -40,5 +41,10 @@ public class ReplyController {
 		mav.setViewName("board/reply_list"); // 뷰의 이름
 		mav.addObject("list", list); // 뷰에 전달할 데이터
 		return mav;
+	}
+// @ResponseBody : 리턴 타입이 json
+	@RequestMapping("list_json.do")
+	public @ResponseBody List<ReplyDTO> list_json(@RequestParam(defaultValue="1") int curPate, @RequestParam int bno, HttpSession session){
+		return replyService.list(bno, 1, 10, session);
 	}
 }
